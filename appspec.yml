@@ -1,0 +1,31 @@
+# version 명시는 필수. 현재는 0.0만 가능함.
+# os: 배포할 서버의 OS, Linux와 Windows 가능
+version: 0.0
+os: linux
+
+# files에서 source, destination은 여러 개를 지정 할 수 있으며
+# 하위 디렉토리별로 destination을 다르게 지정 가능
+# source 항목이 디렉토리면, 디렉토리 안의 디렉토리/파일들이 copy 됨 (지정한 디렉토리 자체는 copy 되지 않음)
+# source 항목이 파일이면, 해당 파일이 copy 됨
+files:
+  - source: /
+    destination: /src/pyspark-apps
+
+# /src/pyspark-apps 에 동일 파일이 존재할 경우 덮어쓰기
+# DISALLOW|OVERWRITE|RETAIN 지정 가능
+file_exists_behavior: OVERWRITE
+
+# permisstions: file copy 후 권한 상세 지정
+# pattern, except 키워드를 통해 대상 상세지정 가능
+permissions:
+  - object: /src/pyspark-apps
+    owner: spark
+    group: spark
+    mode: 755
+
+# hooks 를 통해 before/after 동작 수행 가능
+hooks:
+  AfterInstall:
+    - location: deploy/after_install.sh
+      timeout: 120
+      runas: spark
