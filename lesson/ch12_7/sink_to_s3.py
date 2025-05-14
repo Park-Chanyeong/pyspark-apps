@@ -41,7 +41,7 @@ rslt = spark.sql(f'''CREATE TABLE IF NOT EXISTS person_info(
                 city      STRING,
                 age       INT)
               USING hive OPTIONS(fileFormat 'parquet')  
-              LOCATION 's3a://datalake-spark-pcy/lesson/person_info'
+              LOCATION 's3a://datalake-spark-sink-pcy/lesson/person_info'
               '''
                  )
 print('Table Create (if not exists) completed ')
