@@ -56,7 +56,7 @@ class RtBicycleRent(BaseStreamApp):
             .option("kafka.bootstrap.servers", "kafka01:9092,kafka02:9092,kafka03:9092") \
             .option("subscribe", "apis.seouldata.rt-bicycle") \
             .option('failOnDataLoss', 'false') \
-            .option('startingOffsets', 'earliest') \
+            .option('startingOffsets', 'latest') \
             .option('maxOffsetsPerTrigger', '10000') \
             .load() \
             .selectExpr(
